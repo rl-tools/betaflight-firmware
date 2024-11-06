@@ -20,7 +20,7 @@
 
 #pragma once
 
-#define TARGET_BOARD_IDENTIFIER         "Beebrain BL V5 ELRS Rev_A"
+#define TARGET_BOARD_IDENTIFIER         "Beebrain BL V5 ELRS Rev_B"
 #define USBD_PRODUCT_STRING             "AcroBee Racespec"
 
 /* ======== LED ======== */
@@ -96,7 +96,7 @@
 #define CMS_SKIP_EMPTY_VTX_TABLE_ENTRIES
 
 /* ======== RX ======== */
-#define SERIALRX_UART                   SERIAL_PORT_USART2
+#define SERIALRX_UART                   SERIAL_PORT_USART3
 #define DEFAULT_RX_FEATURE              FEATURE_RX_SERIAL
 #define SERIALRX_PROVIDER               SERIALRX_CRSF
 

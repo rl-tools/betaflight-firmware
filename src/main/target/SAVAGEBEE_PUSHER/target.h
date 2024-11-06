@@ -20,7 +20,7 @@
 
 #pragma once
 
-#define TARGET_BOARD_IDENTIFIER         "Beebrain BL V5 HD ELRS Rev_A"
+#define TARGET_BOARD_IDENTIFIER         "Beebrain BL V4 HD ELRS Rev_A"
 #define USBD_PRODUCT_STRING             "SavageBee Pusher"
 
 /* ======== LED ======== */
