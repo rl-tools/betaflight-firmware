@@ -201,6 +201,9 @@ void targetConfiguration(void) {
     motorConfigMutable()->dev.useDshotTelemetry = DSHOT_TELEMETRY_ON;
     motorConfigMutable()->dev.motorPwmProtocol = PWM_TYPE_DSHOT300;
     motorConfigMutable()->motorPoleCount = 12;
+    
+    /* Motors -> Mixer */
+    mixerConfigMutable()->yaw_motors_reversed = true;
 
     /* Power & Battery */
     batteryConfigMutable()->vbatmincellvoltage = 320;
@@ -208,6 +211,7 @@ void targetConfiguration(void) {
 
     /* Configuration -> Dshot Beacon Configuration */
     beeperConfigMutable()->dshotBeaconTone = DSHOT_CMD_BEACON2;
+    beeperConfigMutable()->dshotBeaconOffFlags = BEEPER_SILENCE;
 
     /* Configuration -> Arming */
     imuConfigMutable()->small_angle = 180;
@@ -233,7 +237,7 @@ void targetConfiguration(void) {
     /* Video Transmitter -> Select Mode */
     vtxSettingsConfigMutable()->band = 4;
     vtxSettingsConfigMutable()->channel = 4;
-    vtxSettingsConfigMutable()->power = 1;
+    vtxSettingsConfigMutable()->power = 2;
 
     /* OSD -> Video Format */
     vcdProfileMutable()->video_system = VIDEO_SYSTEM_NTSC;
@@ -243,33 +247,36 @@ void targetConfiguration(void) {
 
     /* PID Tuning -> PID Profile Settings */
     pidProfilesMutable(0)->vbat_sag_compensation = 100;
-    pidProfilesMutable(0)->pid[PID_PITCH].P = 72;
-    pidProfilesMutable(0)->pid[PID_PITCH].I = 129;
-    pidProfilesMutable(0)->pid[PID_PITCH].D = 47;
-    pidProfilesMutable(0)->pid[PID_PITCH].F = 57;
-    pidProfilesMutable(0)->pid[PID_ROLL].P = 63;
-    pidProfilesMutable(0)->pid[PID_ROLL].I = 112;
+    pidProfilesMutable(0)->pid[PID_PITCH].P = 98;
+    pidProfilesMutable(0)->pid[PID_PITCH].I = 175;
+    pidProfilesMutable(0)->pid[PID_PITCH].D = 53;
+    pidProfilesMutable(0)->pid[PID_PITCH].F = 68;
+    pidProfilesMutable(0)->pid[PID_ROLL].P = 67;
+    pidProfilesMutable(0)->pid[PID_ROLL].I = 119;
     pidProfilesMutable(0)->pid[PID_ROLL].D = 42;
-    pidProfilesMutable(0)->pid[PID_ROLL].F = 50;
+    pidProfilesMutable(0)->pid[PID_ROLL].F = 46;
     pidProfilesMutable(0)->pid[PID_YAW].P = 130;
     pidProfilesMutable(0)->pid[PID_YAW].I = 60;
     pidProfilesMutable(0)->pid[PID_YAW].F = 0;
     pidProfilesMutable(0)->d_min[FD_ROLL] = 42;
-    pidProfilesMutable(0)->d_min[FD_PITCH] = 47;
+    pidProfilesMutable(0)->d_min[FD_PITCH] = 53;
     pidProfilesMutable(0)->thrustLinearization = 20;
     pidProfilesMutable(0)->simplified_pids_mode = PID_SIMPLIFIED_TUNING_RP;
-    pidProfilesMutable(0)->simplified_master_multiplier = 140;
+    pidProfilesMutable(0)->simplified_master_multiplier = 130;
     pidProfilesMutable(0)->simplified_dmin_ratio = 0;
     pidProfilesMutable(0)->simplified_feedforward_gain = 30;
     pidProfilesMutable(0)->simplified_pitch_pi_gain = 110;
-
+    pidProfilesMutable(0)->simplified_d_gain = 110;
+    pidProfilesMutable(0)->simplified_pi_gain =115;
+    pidProfilesMutable(0)->simplified_roll_pitch_ratio =110;
+    pidProfilesMutable(0)->simplified_pitch_pi_gain =140; 
     /* PID Tuning -> Rateprofile Settings */
     controlRateProfilesMutable(0)->rcRates[FD_ROLL] = 8;
     controlRateProfilesMutable(0)->rcRates[FD_PITCH] = 8;
     controlRateProfilesMutable(0)->rcRates[FD_YAW] = 8;
-    controlRateProfilesMutable(0)->rates[FD_ROLL] = 70;
-    controlRateProfilesMutable(0)->rates[FD_PITCH] = 70;
-    controlRateProfilesMutable(0)->rates[FD_YAW] = 70;
+    controlRateProfilesMutable(0)->rates[FD_ROLL] = 73;
+    controlRateProfilesMutable(0)->rates[FD_PITCH] = 73;
+    controlRateProfilesMutable(0)->rates[FD_YAW] = 73;
 }
 
 #endif /* USE_TARGET_CONFIG */
