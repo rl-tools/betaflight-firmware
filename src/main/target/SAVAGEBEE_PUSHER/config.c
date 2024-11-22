@@ -146,6 +146,11 @@ void targetConfiguration(void) {
     motorConfigMutable()->dev.motorPwmProtocol = PWM_TYPE_DSHOT300;
     motorConfigMutable()->motorPoleCount = 12;
 
+    /* Power & Battery */
+    batteryConfigMutable()->vbatmincellvoltage = 330;
+    batteryConfigMutable()->vbatwarningcellvoltage = 350;
+    batteryConfigMutable()->vbatmaxcellvoltage  = 440;
+
     /* Failsafe -> Stage 2 - Setting */
     gpsRescueConfigMutable()->allowArmingWithoutFix = true;
 
