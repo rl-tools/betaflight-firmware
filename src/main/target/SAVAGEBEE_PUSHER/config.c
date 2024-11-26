@@ -153,6 +153,10 @@ void targetConfiguration(void) {
 
     /* Failsafe -> Stage 2 - Setting */
     gpsRescueConfigMutable()->allowArmingWithoutFix = true;
+    gpsRescueConfigMutable()->descendRate = 120;
+    gpsRescueConfigMutable()->minSats = 5;
+    #define USE_GPS_RESCUE
+    failsafeConfigMutable()->failsafe_procedure = FAILSAFE_PROCEDURE_GPS_RESCUE;
 
     /* Motors -> Mixer */
     mixerConfigMutable()->yaw_motors_reversed = true;
