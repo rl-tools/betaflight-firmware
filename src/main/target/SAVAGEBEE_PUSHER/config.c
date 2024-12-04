@@ -187,26 +187,30 @@ void targetConfiguration(void) {
     strcpy(pilotConfigMutable()->craftName, USBD_PRODUCT_STRING);
 
     /* PID Tuning */
+    pidProfilesMutable(0)->vbat_sag_compensation = 100;
     pidProfilesMutable(0)->pid[PID_PITCH].P = 111;
-    pidProfilesMutable(0)->pid[PID_PITCH].I = 169;
-    pidProfilesMutable(0)->pid[PID_PITCH].D = 159;
-    pidProfilesMutable(0)->pid[PID_PITCH].F = 74;
+    pidProfilesMutable(0)->pid[PID_PITCH].I = 199;
+    pidProfilesMutable(0)->pid[PID_PITCH].D = 69;
+    pidProfilesMutable(0)->pid[PID_PITCH].F = 297;
     pidProfilesMutable(0)->pid[PID_ROLL].P = 76;
-    pidProfilesMutable(0)->pid[PID_ROLL].I = 115;
-    pidProfilesMutable(0)->pid[PID_ROLL].D = 116;
-    pidProfilesMutable(0)->pid[PID_ROLL].F = 50;
+    pidProfilesMutable(0)->pid[PID_ROLL].I = 136;
+    pidProfilesMutable(0)->pid[PID_ROLL].D = 50;
+    pidProfilesMutable(0)->pid[PID_ROLL].F = 203;
     pidProfilesMutable(0)->pid[PID_YAW].P = 130;
     pidProfilesMutable(0)->pid[PID_YAW].I = 60;
     pidProfilesMutable(0)->pid[PID_YAW].F = 0;
     pidProfilesMutable(0)->pid[PID_LEVEL].I = 50;
-    pidProfilesMutable(0)->d_min[FD_ROLL] = 96;
-    pidProfilesMutable(0)->d_min[FD_PITCH] = 131;
+    pidProfilesMutable(0)->d_min[FD_ROLL] = 50;
+    pidProfilesMutable(0)->d_min[FD_PITCH] = 69;
+    pidProfilesMutable(0)->d_min_advance = 0;
+    pidProfilesMutable(0)->thrustLinearization = 25;
+    pidProfilesMutable(0)->dyn_idle_min_rpm = 60;
     pidProfilesMutable(0)->simplified_pids_mode = PID_SIMPLIFIED_TUNING_RP;
     pidProfilesMutable(0)->simplified_master_multiplier = 170;
-    pidProfilesMutable(0)->simplified_i_gain = 85;
-    pidProfilesMutable(0)->simplified_d_gain = 190;
-    pidProfilesMutable(0)->simplified_dmin_ratio = 60;
-    pidProfilesMutable(0)->simplified_feedforward_gain = 25;
+    pidProfilesMutable(0)->simplified_i_gain = 100;
+    pidProfilesMutable(0)->simplified_d_gain = 100;
+    pidProfilesMutable(0)->simplified_dmin_ratio = 0;
+    pidProfilesMutable(0)->simplified_feedforward_gain = 100;
     pidProfilesMutable(0)->simplified_roll_pitch_ratio = 120;
     pidProfilesMutable(0)->simplified_pitch_pi_gain = 140;
 }
