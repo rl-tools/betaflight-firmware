@@ -21,7 +21,7 @@
 #pragma once
 
 #define TARGET_BOARD_IDENTIFIER         "HummingBird F4 V3"
-#define USBD_PRODUCT_STRING             "HummingBird F4 V3"
+#define USBD_PRODUCT_STRING             "HummingBird V3"
 
 /* ======== LED ======== */
 #define USE_LED_STRIP
@@ -29,6 +29,10 @@
 #define LED_STRIP_PIN                   PB1
 
 #define LED0_PIN                        PC14
+
+/* ======== BUZZER ======== */
+#define USE_BEEPER
+#define BEEPER_INVERTED
 
 /* ======== UART ======== */
 #define USE_UART
@@ -152,3 +156,5 @@
 #define TARGET_IO_PORTE                 0xffff
 
 #define FLASH_PAGE_SIZE                 ((uint32_t)0x4000) // 16K sectors
+
+#define USE_TARGET_CONFIG
