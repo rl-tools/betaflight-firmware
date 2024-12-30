@@ -21,7 +21,7 @@
 #pragma once
 
 #define TARGET_BOARD_IDENTIFIER         "Infinity AIO"
-#define USBD_PRODUCT_STRING             "Infinity AIO"
+#define USBD_PRODUCT_STRING             "StingerBee HD"
 
 /* ======== LED ======== */
 #define USE_LED_STRIP
@@ -87,6 +87,24 @@
 /* ======== I2C ======== */
 #define USE_I2C
 #define USE_I2C_DEVICE_1
+#define I2C_FULL_RECONFIGURABILITY
+#define BARO_BUSTYPE                   BUS_TYPE_I2C
+#define MAG_BUSTYPE                    BUS_TYPE_I2C
+
+#define USE_MAG
+#define USE_BARO
+#undef USE_BARO_SPI_MS5611
+#undef USE_BARO_SPI_BMP280
+#undef USE_BARO_SPI_BMP388
+#undef USE_BARO_SPI_LPS
+#undef USE_BARO_SPI_QMP6988
+#undef USE_BARO_SPI_DPS310
+#undef USE_BARO_SPI_2SMBP_02B
+#undef USE_BARO_SPI_LPS22DF
+
+#define MAG_I2C_INSTANCE              (I2CDEV_1)
+#define BARO_I2C_INSTANCE             (I2CDEV_1)
+
 #define I2C1_SCL_PIN                    PB8
 #define I2C1_SDA_PIN                    PB9
 
@@ -111,10 +129,29 @@
 #define MAX7456_SPI_INSTANCE            SPI3
 
 /* ======== FLASH ======== */
-#define USE_FLASH_W25Q128FV
+#define USE_FLASH
+#define USE_FLASH_M25P16
+
+#define DEFAULT_BLACKBOX_DEVICE         BLACKBOX_DEVICE_FLASH
 
 #define FLASH_CS_PIN                    PB0
 #define FLASH_SPI_INSTANCE              SPI1
+
+/* ======== VTX ======== */
+#define MSP_DISPLAYPORT_UART            SERIAL_PORT_USART2
+
+/* ======== RX ======== */
+#define SERIALRX_UART                   SERIAL_PORT_USART8
+#define DEFAULT_RX_FEATURE              FEATURE_RX_SERIAL
+#define SERIALRX_PROVIDER               SERIALRX_CRSF
+
+/* ======== GPS ======== */
+#define USE_GPS
+#define USE_GPS_NMEA
+#define USE_GPS_UBLOX
+#define USE_GPS_RESCUE
+
+#define GPS_UART                        SERIAL_PORT_USART3
 
 /* ======== ADC ======== */
 #define USE_ADC
@@ -124,8 +161,9 @@
 #define ADC_VBAT_PIN                    PC1
 #define ADC_CURR_PIN                    PC2
 
-#define VBAT_SCALE_DEFAULT              100
-#define CURRENT_METER_SCALE_DEFAULT     410
+#define DEFAULT_VOLTAGE_METER_SCALE     109
+#define DEFAULT_CURRENT_METER_SCALE     118
+#define DEFAULT_CURRENT_METER_OFFSET    10
 
 #define DEFAULT_VOLTAGE_METER_SOURCE    VOLTAGE_METER_ADC
 #define DEFAULT_CURRENT_METER_SOURCE    CURRENT_METER_ADC
@@ -157,3 +195,5 @@
 #define TARGET_IO_PORTF                 0xffff
 
 #define FLASH_PAGE_SIZE                 ((uint32_t)0x8000) // 32K sectors
+
+#define USE_TARGET_CONFIG
