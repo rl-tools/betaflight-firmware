@@ -85,6 +85,7 @@
 #include "pg/sdcard.h"
 #include "pg/vcd.h"
 #include "pg/vtx_table.h"
+#include "pg/gps_rescue.h"
 
 #include "rx/rx.h"
 #include "rx/rx_spi.h"
@@ -145,6 +146,14 @@ void targetConfiguration(void) {
     /* Motors -> Mixer */
     mixerConfigMutable()->yaw_motors_reversed = true;
     
+    /* Failsafe -> Stage 2 - Setting */
+    #define USE_GPS_RESCUE
+    failsafeConfigMutable()->failsafe_procedure = FAILSAFE_PROCEDURE_GPS_RESCUE;
+    gpsRescueConfigMutable()->initialClimbM = 30;
+    gpsRescueConfigMutable()->maxRescueAngle = 60;
+    gpsRescueConfigMutable()->minSats = 6;
+    gpsRescueConfigMutable()->allowArmingWithoutFix = true;
+
     /* Power & Battery */
     batteryConfigMutable()->vbatmincellvoltage = 330;
     batteryConfigMutable()->vbatwarningcellvoltage = 350;
