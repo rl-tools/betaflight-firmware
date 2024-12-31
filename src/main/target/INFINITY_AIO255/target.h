@@ -131,7 +131,7 @@
 /* ======== FLASH ======== */
 #define USE_FLASH
 #define USE_FLASH_M25P16
-
+#define USE_FLASH_W25Q128FV
 #define DEFAULT_BLACKBOX_DEVICE         BLACKBOX_DEVICE_FLASH
 
 #define FLASH_CS_PIN                    PB0
