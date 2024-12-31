@@ -115,8 +115,8 @@ void targetConfiguration(void) {
 
     modeActivationConditionsMutable(1)->modeId          = BOXANGLE;
     modeActivationConditionsMutable(1)->auxChannelIndex = AUX2 - NON_AUX_CHANNEL_COUNT;
-    modeActivationConditionsMutable(1)->range.startStep = CHANNEL_VALUE_TO_STEP(900);
-    modeActivationConditionsMutable(1)->range.endStep   = CHANNEL_VALUE_TO_STEP(1300);
+    modeActivationConditionsMutable(1)->range.startStep = CHANNEL_VALUE_TO_STEP(1700);
+    modeActivationConditionsMutable(1)->range.endStep   = CHANNEL_VALUE_TO_STEP(2100);
 
     modeActivationConditionsMutable(2)->modeId          = BOXHORIZON;
     modeActivationConditionsMutable(2)->auxChannelIndex = AUX2 - NON_AUX_CHANNEL_COUNT;
@@ -171,7 +171,6 @@ void targetConfiguration(void) {
     osdElementConfigMutable()->item_pos[OSD_WARNINGS]                      = OSD_PROFILE_1_FLAG | OSD_POS(21,9);
     osdElementConfigMutable()->item_pos[OSD_RSSI_VALUE]                    = OSD_PROFILE_1_FLAG | OSD_POS(3,17);
     osdElementConfigMutable()->item_pos[OSD_ITEM_TIMER_1]                  = OSD_PROFILE_1_FLAG | OSD_POS(3,16);
-    osdElementConfigMutable()->item_pos[OSD_ITEM_TIMER_2]                  = OSD_PROFILE_1_FLAG | OSD_POS(3,16);
     osdElementConfigMutable()->item_pos[OSD_FLYMODE]                       = OSD_PROFILE_1_FLAG | OSD_POS(19,17);
     osdElementConfigMutable()->item_pos[OSD_CURRENT_DRAW]                  = OSD_PROFILE_1_FLAG | OSD_POS(26,17);
     osdElementConfigMutable()->item_pos[OSD_CRAFT_NAME]                    = OSD_PROFILE_1_FLAG | OSD_POS(19,16);
