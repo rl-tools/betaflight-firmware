@@ -134,9 +134,9 @@ CI_TARGETS       := $(filter-out AT32F435G AT32F435M \
 include $(ROOT)/src/main/target/$(TARGET)/target.mk
 
 REVISION := norevision
-ifeq ($(shell git diff --shortstat),)
-REVISION := $(shell git log -1 --format="%h")
-endif
+# ifeq ($(shell git diff --shortstat),)
+# REVISION := $(shell git log -1 --format="%h")
+# endif
 
 LD_FLAGS        :=
 EXTRA_LD_FLAGS  :=
@@ -336,7 +336,7 @@ TARGET_LST      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).lst
 
 
 SRC             += $(ROOT)/src/main/flight/rl_tools_adapter.cpp
-CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I/Users/jonas/rl_tools/include
+CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I/rl-tools/include -I/betaflight
 
 define compile_file_cpp
 	echo "%% ($(1)) $<" "$(STDOUT)" && \
