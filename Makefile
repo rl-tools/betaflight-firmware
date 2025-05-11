@@ -214,6 +214,7 @@ VPATH           := $(VPATH):$(TARGET_DIR)
 
 include $(MAKE_SCRIPT_DIR)/source.mk
 
+
 ###############################################################################
 # Things that might need changing to use different tools
 #
@@ -332,9 +333,48 @@ TARGET_ELF      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).elf
 TARGET_EXST_ELF = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME)_EXST.elf
 TARGET_UNPATCHED_BIN = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME)_UNPATCHED.bin
 TARGET_LST      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).lst
+
+
+SRC             += $(ROOT)/src/main/flight/rl_tools_adapter.cpp
+CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I/Users/jonas/rl_tools/include
+
+define compile_file_cpp
+	echo "%% ($(1)) $<" "$(STDOUT)" && \
+	$(CROSS_CXX) -c -o $@ $(CXXFLAGS) $(2) $<
+endef
+
+ifeq ($(DEBUG),GDB)
+$(TARGET_OBJ_DIR)/%.o: %.cpp
+	$(V1) mkdir -p $(dir $@)
+	$(V1) $(if $(findstring $<,$(NOT_OPTIMISED_SRC)), \
+		$(call compile_file_cpp,not optimised, $(CC_NO_OPTIMISATION)) \
+	, \
+		$(call compile_file_cpp,debug,$(CC_DEBUG_OPTIMISATION)) \
+	)
+else
+$(TARGET_OBJ_DIR)/%.o: %.cpp
+	$(V1) mkdir -p $(dir $@)
+	$(V1) $(if $(findstring $<,$(NOT_OPTIMISED_SRC)), \
+		$(call compile_file_cpp,not optimised,$(CC_NO_OPTIMISATION)) \
+	, \
+		$(if $(findstring $(subst ./src/main/,,$<),$(SPEED_OPTIMISED_SRC)), \
+			$(call compile_file_cpp,speed optimised,$(CC_SPEED_OPTIMISATION)) \
+		, \
+			$(if $(findstring $(subst ./src/main/,,$<),$(SIZE_OPTIMISED_SRC)), \
+				$(call compile_file_cpp,size optimised,$(CC_SIZE_OPTIMISATION)) \
+			, \
+				$(call compile_file_cpp,optimised,$(CC_DEFAULT_OPTIMISATION)) \
+			) \
+		) \
+	)
+endif
+
+
+
 TARGET_OBJS     = $(addsuffix .o,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(SRC))))
 TARGET_DEPS     = $(addsuffix .d,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(SRC))))
 TARGET_MAP      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).map
+
 
 TARGET_EXST_HASH_SECTION_FILE = $(TARGET_OBJ_DIR)/exst_hash_section.bin
 
