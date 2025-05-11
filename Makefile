@@ -336,7 +336,7 @@ TARGET_LST      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).lst
 
 
 SRC             += $(ROOT)/src/main/flight/rl_tools_adapter.cpp
-CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I/rl-tools/include -I/betaflight
+CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition -Werror,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I/rl-tools/include -I/betaflight
 
 define compile_file_cpp
 	echo "%% ($(1)) $<" "$(STDOUT)" && \
