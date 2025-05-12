@@ -62,7 +62,8 @@ BIN_DIR         := $(ROOT)/obj
 CMSIS_DIR       := $(ROOT)/lib/main/CMSIS
 INCLUDE_DIRS    := $(SRC_DIR) \
                    $(ROOT)/src/main/target \
-                   $(ROOT)/src/main/startup
+                   $(ROOT)/src/main/startup \
+				   /rl-tools/include
 LINKER_DIR      := $(ROOT)/src/link
 MAKE_SCRIPT_DIR := $(ROOT)/mk
 
@@ -336,7 +337,7 @@ TARGET_LST      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).lst
 
 
 SRC             += $(ROOT)/src/main/flight/rl_tools_adapter.cpp
-CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition -Werror,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I/rl-tools/include -I/betaflight
+CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition -Werror -flto,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I/rl-tools/include -I/betaflight -w -fno-lto
 
 define compile_file_cpp
 	echo "%% ($(1)) $<" "$(STDOUT)" && \
@@ -704,7 +705,7 @@ $(TARGET_EF_HASH_FILE):
 	$(V1) touch $(TARGET_EF_HASH_FILE)
 
 # rebuild everything when makefile changes or the extra flags have changed
-$(TARGET_OBJS): $(TARGET_EF_HASH_FILE) | Makefile $(TARGET_DIR)/target.mk $(wildcard make/*) $(CONFIG_FILE)
+$(TARGET_OBJS): $(TARGET_EF_HASH_FILE) Makefile $(TARGET_DIR)/target.mk $(wildcard make/*) $(CONFIG_FILE)
 
 # include auto-generated dependencies
 -include $(TARGET_DEPS)

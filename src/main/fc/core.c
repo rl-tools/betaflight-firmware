@@ -107,6 +107,8 @@
 
 #include "core.h"
 
+#include "flight/rl_tools_adapter.h"
+
 
 enum {
     ALIGN_GYRO = 0,
@@ -1309,6 +1311,9 @@ FAST_CODE void taskMainPidLoop(timeUs_t currentTimeUs)
     subTaskRcCommand(currentTimeUs);
     subTaskPidController(currentTimeUs);
     subTaskMotorUpdate(currentTimeUs);
+		
+    rl_tools_inference_applications_l2f_reset();
+
     subTaskPidSubprocesses(currentTimeUs);
 
     DEBUG_SET(DEBUG_CYCLETIME, 0, getTaskDeltaTimeUs(TASK_SELF));
