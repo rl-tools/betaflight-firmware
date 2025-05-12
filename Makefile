@@ -337,11 +337,11 @@ TARGET_LST      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).lst
 
 
 SRC             += $(ROOT)/src/main/flight/rl_tools_adapter.cpp
-CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition -Werror -flto,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I$(RL_TOOLS_PATH)/include -I$(ROOT)/.. -w -fno-lto
+CXXFLAGS := $(filter-out -std=gnu17 -Wold-style-definition -Werror,$(CFLAGS)) -std=gnu++17 -fno-exceptions -fno-rtti -I$(RL_TOOLS_PATH)/include -I$(ROOT)/.. -w
 
 define compile_file_cpp
 	echo "%% ($(1)) $<" "$(STDOUT)" && \
-	$(CROSS_CXX) -c -o $@ $(CXXFLAGS) $(2) $<
+	$(CROSS_CXX) -c -o $@ $(2) $(CXXFLAGS) $<
 endef
 
 ifeq ($(DEBUG),GDB)
