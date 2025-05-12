@@ -135,9 +135,9 @@ CI_TARGETS       := $(filter-out AT32F435G AT32F435M \
 include $(ROOT)/src/main/target/$(TARGET)/target.mk
 
 REVISION := norevision
-# ifeq ($(shell git diff --shortstat),)
-# REVISION := $(shell git log -1 --format="%h")
-# endif
+ifeq ($(shell git diff --shortstat),)
+REVISION := $(shell git log -1 --format="%h")
+endif
 
 LD_FLAGS        :=
 EXTRA_LD_FLAGS  :=
@@ -214,7 +214,6 @@ INCLUDE_DIRS    := $(INCLUDE_DIRS) \
 VPATH           := $(VPATH):$(TARGET_DIR)
 
 include $(MAKE_SCRIPT_DIR)/source.mk
-
 
 ###############################################################################
 # Things that might need changing to use different tools
@@ -375,7 +374,6 @@ endif
 TARGET_OBJS     = $(addsuffix .o,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(SRC))))
 TARGET_DEPS     = $(addsuffix .d,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(SRC))))
 TARGET_MAP      = $(OBJECT_DIR)/$(FORKNAME)_$(TARGET_NAME).map
-
 
 TARGET_EXST_HASH_SECTION_FILE = $(TARGET_OBJ_DIR)/exst_hash_section.bin
 
