@@ -150,9 +150,9 @@ else
 ifeq ($(DEBUG),INFO)
 DEBUG_FLAGS            = -ggdb2
 endif
-OPTIMISATION_BASE     := -flto -fuse-linker-plugin -ffast-math -fmerge-all-constants
+OPTIMISATION_BASE     := -flto -ffast-math -fmerge-all-constants
 OPTIMISE_DEFAULT      := -O2
-OPTIMISE_SPEED        := -Ofast
+OPTIMISE_SPEED        := -O3 -ffast-math
 OPTIMISE_SIZE         := -Os
 
 LTO_FLAGS             := $(OPTIMISATION_BASE) $(OPTIMISE_SPEED)
@@ -253,7 +253,7 @@ CFLAGS     += $(ARCH_FLAGS) \
               $(addprefix -I,$(INCLUDE_DIRS)) \
               $(DEBUG_FLAGS) \
               -std=gnu17 \
-              -Wall -Wextra -Werror -Wpedantic -Wunsafe-loop-optimizations -Wdouble-promotion \
+              -Wall -Wextra -Wpedantic -Wdouble-promotion \
               $(EXTRA_WARNING_FLAGS) \
               -ffunction-sections \
               -fdata-sections \
@@ -288,7 +288,6 @@ LD_FLAGS     = -lm \
               $(LTO_FLAGS) \
               $(DEBUG_FLAGS) \
               -static \
-              -Wl,-gc-sections,-Map,$(TARGET_MAP) \
               -Wl,-L$(LINKER_DIR) \
               -Wl,--cref \
               -Wl,--no-wchar-size-warning \

@@ -44,14 +44,10 @@ LD_FLAGS    := \
               -lm \
               -lpthread \
               -lc \
-              -lrt \
               $(ARCH_FLAGS) \
               $(LTO_FLAGS) \
               $(DEBUG_FLAGS) \
-              -Wl,-gc-sections,-Map,$(TARGET_MAP) \
-              -Wl,-L$(LINKER_DIR) \
-              -Wl,--cref \
-              -T$(LD_SCRIPT)
+              -Wl,-L$(LINKER_DIR)
 
 ifneq ($(filter SITL_STATIC,$(OPTIONS)),)
 LD_FLAGS     += \
@@ -60,8 +56,8 @@ LD_FLAGS     += \
 endif
 
 ifneq ($(DEBUG),GDB)
-OPTIMISE_DEFAULT    := -Ofast
-OPTIMISE_SPEED      := -Ofast
+OPTIMISE_DEFAULT    := -O3 -ffast-math
+OPTIMISE_SPEED      := -O3 -ffast-math
 OPTIMISE_SIZE       := -Os
 
 LTO_FLAGS           := $(OPTIMISATION_BASE) $(OPTIMISE_SPEED)
