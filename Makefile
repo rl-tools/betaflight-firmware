@@ -776,15 +776,10 @@ $(TARGET_EF_HASH_FILE):
 
 # rebuild everything when makefile changes or the extra flags have changed
 $(TARGET_OBJS): $(TARGET_EF_HASH_FILE) Makefile $(TARGET_DIR)/target.mk $(wildcard make/*) $(CONFIG_FILE)
-CXX_SRC = \
-    rl_tools/policy.cpp
-TARGET_OBJS += $(addsuffix .o,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(CXX_SRC))))
-CXXFLAGS      = $(filter-out -std=gnu17,$(CFLAGS)) -fno-rtti -fno-exceptions -std=c++17 -I $(RL_TOOLS_ROOT)
 
-$(TARGET_OBJ_DIR)/%.o: %.cpp
-	$(V1) mkdir -p $(dir $@)
-	@echo "%% (c++) $<" "$(STDOUT)"
-	$(V1) $(CROSS_CXX) -c -o $@ $(CXXFLAGS) $<
+ifneq ($(wildcard $(MAKE_SCRIPT_DIR)/local_post.mk),)
+include $(MAKE_SCRIPT_DIR)/local_post.mk
+endif
 
 # include auto-generated dependencies
 -include $(TARGET_DEPS)
