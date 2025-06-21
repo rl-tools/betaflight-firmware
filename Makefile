@@ -68,7 +68,7 @@ LIB_MAIN_DIR    := $(ROOT)/lib/main
 OBJECT_DIR      := $(ROOT)/obj/main
 BIN_DIR         := $(ROOT)/obj
 CMSIS_DIR       := $(ROOT)/lib/main/CMSIS
-INCLUDE_DIRS    := $(SRC_DIR) /Users/jonas/rl_tools/include
+INCLUDE_DIRS    := $(SRC_DIR)
 
 MAKE_SCRIPT_DIR := $(ROOT)/mk
 
@@ -480,11 +480,6 @@ $(TARGET_HEX): $(TARGET_BIN)
 
 endif
 
-# $(TARGET_ELF): $(TARGET_OBJS) $(LD_SCRIPT) $(LD_SCRIPTS)
-# 	@echo "Linking $(TARGET_NAME)" "$(STDOUT)"
-# 	$(V1) $(CROSS_CC) -o $@ $(filter-out %.ld,$^) $(LD_FLAGS)
-# 	$(V1) $(SIZE) $(TARGET_ELF)
-
 $(TARGET_ELF): $(TARGET_OBJS) $(TARGET_CXX_OBJS) $(LD_SCRIPT) $(LD_SCRIPTS)
 	@echo "Linking $(TARGET_NAME)" "$(STDOUT)"
 	$(V1) $(CROSS_CC) -o $@ $(filter-out %.ld,$^) $(LD_FLAGS)
@@ -784,7 +779,7 @@ $(TARGET_OBJS): $(TARGET_EF_HASH_FILE) Makefile $(TARGET_DIR)/target.mk $(wildca
 CXX_SRC = \
     rl_tools/policy.cpp
 TARGET_CXX_OBJS := $(addsuffix .o,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(CXX_SRC))))
-CXXFLAGS      = $(filter-out -std=gnu17,$(CFLAGS)) -fno-rtti -fno-exceptions -std=c++17
+CXXFLAGS      = $(filter-out -std=gnu17,$(CFLAGS)) -fno-rtti -fno-exceptions -std=c++17 -I $(RL_TOOLS_ROOT)
 
 $(TARGET_OBJ_DIR)/%.o: %.cpp
 	$(V1) mkdir -p $(dir $@)
