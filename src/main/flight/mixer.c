@@ -65,7 +65,8 @@
 #include "sensors/gyro.h"
 #include "sensors/sensors.h"
 
-#include "mixer.h"
+#include "rl_tools/policy.h"
+
 
 #define DYN_LPF_THROTTLE_STEPS             100
 #define DYN_LPF_THROTTLE_UPDATE_DELAY_US  5000 // minimum of 5ms between updates
@@ -476,6 +477,8 @@ static void applyMixToMotors(const float motorMix[MAX_SUPPORTED_MOTORS], motorMi
         }
         motor[i] = motorOutput;
     }
+
+    rl_tools_test();
 
     // Disarmed mode
     if (!ARMING_FLAG(ARMED)) {

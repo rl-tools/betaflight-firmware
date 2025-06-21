@@ -178,7 +178,7 @@ DEBUG_FLAGS            = -ggdb2
 endif
 OPTIMISATION_BASE     := -flto=auto -fuse-linker-plugin -ffast-math -fmerge-all-constants
 OPTIMISE_DEFAULT      := -O2
-OPTIMISE_SPEED        := -Ofast
+OPTIMISE_SPEED        := -O3 -ffast-math
 OPTIMISE_SIZE         := -Os
 
 LTO_FLAGS             := $(OPTIMISATION_BASE) $(OPTIMISE_SPEED)
@@ -480,7 +480,12 @@ $(TARGET_HEX): $(TARGET_BIN)
 
 endif
 
-$(TARGET_ELF): $(TARGET_OBJS) $(LD_SCRIPT) $(LD_SCRIPTS)
+# $(TARGET_ELF): $(TARGET_OBJS) $(LD_SCRIPT) $(LD_SCRIPTS)
+# 	@echo "Linking $(TARGET_NAME)" "$(STDOUT)"
+# 	$(V1) $(CROSS_CC) -o $@ $(filter-out %.ld,$^) $(LD_FLAGS)
+# 	$(V1) $(SIZE) $(TARGET_ELF)
+
+$(TARGET_ELF): $(TARGET_OBJS) $(TARGET_CXX_OBJS) $(LD_SCRIPT) $(LD_SCRIPTS)
 	@echo "Linking $(TARGET_NAME)" "$(STDOUT)"
 	$(V1) $(CROSS_CC) -o $@ $(filter-out %.ld,$^) $(LD_FLAGS)
 	$(V1) $(SIZE) $(TARGET_ELF)
@@ -712,6 +717,7 @@ help: Makefile mk/tools.mk
 	@echo ""
 	@sed -n 's/^## //p' $?
 
+
 ## targets           : print a list of all valid target platforms (for consumption by scripts)
 targets:
 	@echo "Platforms:           $(PLATFORMS)"
@@ -775,6 +781,17 @@ $(TARGET_EF_HASH_FILE):
 
 # rebuild everything when makefile changes or the extra flags have changed
 $(TARGET_OBJS): $(TARGET_EF_HASH_FILE) Makefile $(TARGET_DIR)/target.mk $(wildcard make/*) $(CONFIG_FILE)
+CXX_SRC = \
+    rl_tools/policy.cpp
+TARGET_CXX_OBJS := $(addsuffix .o,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(CXX_SRC))))
+CXXFLAGS      = $(filter-out -std=gnu17,$(CFLAGS)) -fno-rtti -fno-exceptions
+INCLUDE_DIRS    := $(INCLUDE_DIRS) \
+                    $(ROOT)/rl_tools
+
+$(TARGET_OBJ_DIR)/%.o: %.cpp
+	$(V1) mkdir -p $(dir $@)
+	@echo "%% (c++) $<" "$(STDOUT)"
+	$(V1) $(CROSS_CXX) -c -o $@ $(CXXFLAGS) $<
 
 # include auto-generated dependencies
 -include $(TARGET_DEPS)
