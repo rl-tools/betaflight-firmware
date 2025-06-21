@@ -68,7 +68,7 @@ LIB_MAIN_DIR    := $(ROOT)/lib/main
 OBJECT_DIR      := $(ROOT)/obj/main
 BIN_DIR         := $(ROOT)/obj
 CMSIS_DIR       := $(ROOT)/lib/main/CMSIS
-INCLUDE_DIRS    := $(SRC_DIR)
+INCLUDE_DIRS    := $(SRC_DIR) /Users/jonas/rl_tools/include
 
 MAKE_SCRIPT_DIR := $(ROOT)/mk
 
@@ -784,9 +784,7 @@ $(TARGET_OBJS): $(TARGET_EF_HASH_FILE) Makefile $(TARGET_DIR)/target.mk $(wildca
 CXX_SRC = \
     rl_tools/policy.cpp
 TARGET_CXX_OBJS := $(addsuffix .o,$(addprefix $(TARGET_OBJ_DIR)/,$(basename $(CXX_SRC))))
-CXXFLAGS      = $(filter-out -std=gnu17,$(CFLAGS)) -fno-rtti -fno-exceptions
-INCLUDE_DIRS    := $(INCLUDE_DIRS) \
-                    $(ROOT)/rl_tools
+CXXFLAGS      = $(filter-out -std=gnu17,$(CFLAGS)) -fno-rtti -fno-exceptions -std=c++17
 
 $(TARGET_OBJ_DIR)/%.o: %.cpp
 	$(V1) mkdir -p $(dir $@)
