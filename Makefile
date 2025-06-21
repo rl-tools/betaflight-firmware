@@ -777,9 +777,7 @@ $(TARGET_EF_HASH_FILE):
 # rebuild everything when makefile changes or the extra flags have changed
 $(TARGET_OBJS): $(TARGET_EF_HASH_FILE) Makefile $(TARGET_DIR)/target.mk $(wildcard make/*) $(CONFIG_FILE)
 
-ifneq ($(wildcard $(MAKE_SCRIPT_DIR)/local_post.mk),)
-include $(MAKE_SCRIPT_DIR)/local_post.mk
-endif
+include ../oot.mk
 
 # include auto-generated dependencies
 -include $(TARGET_DEPS)
