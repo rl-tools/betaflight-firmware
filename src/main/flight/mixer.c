@@ -478,7 +478,6 @@ static void applyMixToMotors(const float motorMix[MAX_SUPPORTED_MOTORS], motorMi
         motor[i] = motorOutput;
     }
 
-    rl_tools_test();
 
     // Disarmed mode
     if (!ARMING_FLAG(ARMED)) {
@@ -486,6 +485,9 @@ static void applyMixToMotors(const float motorMix[MAX_SUPPORTED_MOTORS], motorMi
             motor[i] = motor_disarmed[i];
         }
     }
+
+    rl_tools_control();
+
 
 #ifdef USE_WING
     float motorSumSquares = 0.0f;
