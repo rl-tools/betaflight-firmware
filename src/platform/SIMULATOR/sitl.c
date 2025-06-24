@@ -70,6 +70,7 @@
 
 #include "dyad.h"
 #include "udplink.h"
+#include <rl_tools/policy.h>
 
 uint32_t SystemCoreClock;
 
@@ -203,6 +204,23 @@ static void updateState(const fdm_packet* pkt)
     }
     setVirtualGPS(latitude, longitude, altitude, speed, speed3D, course);
 #endif
+
+    rl_tools_position[0] = pkt->position_xyz[0];
+    rl_tools_position[1] = pkt->position_xyz[1];
+    rl_tools_position[2] = pkt->position_xyz[2];
+
+    rl_tools_orientation[0] = pkt->imu_orientation_quat[0];
+    rl_tools_orientation[1] = pkt->imu_orientation_quat[1];
+    rl_tools_orientation[2] = pkt->imu_orientation_quat[2];
+    rl_tools_orientation[3] = pkt->imu_orientation_quat[3];
+
+    rl_tools_linear_velocity[0] = pkt->velocity_xyz[0];
+    rl_tools_linear_velocity[1] = pkt->velocity_xyz[1];
+    rl_tools_linear_velocity[2] = pkt->velocity_xyz[2];
+
+    rl_tools_angular_velocity[0] = pkt->imu_angular_velocity_rpy[0];
+    rl_tools_angular_velocity[1] = -pkt->imu_angular_velocity_rpy[1];
+    rl_tools_angular_velocity[2] = -pkt->imu_angular_velocity_rpy[2];
 
 #if defined(SIMULATOR_IMU_SYNC)
     imuSetHasNewData(deltaSim*1e6);
@@ -603,6 +621,10 @@ static void pwmCompleteMotorUpdate(void)
     pwmPkt.motor_speed[0] = motorsPwm[1] / outScale;
     pwmPkt.motor_speed[1] = motorsPwm[2] / outScale;
     pwmPkt.motor_speed[2] = motorsPwm[3] / outScale;
+    pwmPkt.motor_speed[0] = rl_tools_rpms[0] / 2 + 0.5f;
+    pwmPkt.motor_speed[1] = rl_tools_rpms[1] / 2 + 0.5f;
+    pwmPkt.motor_speed[2] = rl_tools_rpms[2] / 2 + 0.5f;
+    pwmPkt.motor_speed[3] = rl_tools_rpms[3] / 2 + 0.5f;
 
     // get one "fdm_packet" can only send one "servo_packet"!!
     if (pthread_mutex_trylock(&updateLock) != 0) return;
