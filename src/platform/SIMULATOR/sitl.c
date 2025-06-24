@@ -209,18 +209,9 @@ static void updateState(const fdm_packet* pkt)
     rl_tools_position[1] = pkt->position_xyz[1];
     rl_tools_position[2] = pkt->position_xyz[2];
 
-    rl_tools_orientation[0] = pkt->imu_orientation_quat[0];
-    rl_tools_orientation[1] = pkt->imu_orientation_quat[1];
-    rl_tools_orientation[2] = pkt->imu_orientation_quat[2];
-    rl_tools_orientation[3] = pkt->imu_orientation_quat[3];
-
     rl_tools_linear_velocity[0] = pkt->velocity_xyz[0];
     rl_tools_linear_velocity[1] = pkt->velocity_xyz[1];
     rl_tools_linear_velocity[2] = pkt->velocity_xyz[2];
-
-    rl_tools_angular_velocity[0] = pkt->imu_angular_velocity_rpy[0];
-    rl_tools_angular_velocity[1] = -pkt->imu_angular_velocity_rpy[1];
-    rl_tools_angular_velocity[2] = -pkt->imu_angular_velocity_rpy[2];
 
 #if defined(SIMULATOR_IMU_SYNC)
     imuSetHasNewData(deltaSim*1e6);
