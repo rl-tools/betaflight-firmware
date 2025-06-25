@@ -53,7 +53,6 @@ FLASH_SIZE ?=
 #
 
 FORKNAME      = betaflight
-$(info ROOT_DIR=$(ROOT_DIR))
 
 # Working directories
 ROOT            := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
