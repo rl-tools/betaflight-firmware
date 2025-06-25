@@ -712,7 +712,6 @@ help: Makefile mk/tools.mk
 	@echo ""
 	@sed -n 's/^## //p' $?
 
-
 ## targets           : print a list of all valid target platforms (for consumption by scripts)
 targets:
 	@echo "Platforms:           $(PLATFORMS)"
