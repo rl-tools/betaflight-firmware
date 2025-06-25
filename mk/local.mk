@@ -1,1 +1,1 @@
-INCLUDE_DIRS += $(ROOT_DIR)/../src
+INCLUDE_DIRS += ../../src
