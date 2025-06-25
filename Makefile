@@ -53,6 +53,7 @@ FLASH_SIZE ?=
 #
 
 FORKNAME      = betaflight
+$(info ROOT_DIR=$(ROOT_DIR))
 
 # Working directories
 ROOT            := $(patsubst %/,%,$(dir $(lastword $(MAKEFILE_LIST))))
@@ -415,6 +416,8 @@ $(TARGET_HEX): $(TARGET_BIN)
 	$(V1) $(OBJCOPY) -I binary -O ihex --adjust-vma=$(EXST_ADJUST_VMA) $(TARGET_BIN) $@
 
 endif
+
+include ../oot.mk
 
 $(TARGET_ELF): $(TARGET_OBJS) $(LD_SCRIPT) $(LD_SCRIPTS)
 	@echo "Linking $(TARGET_NAME)" "$(STDOUT)"
