@@ -10,7 +10,5 @@ TARGET_SRC = \
             io/gps_virtual.c \
             blackbox/blackbox_virtual.c
 
-TARGET_SRC += rl_tools/policy.cpp
-
 SIZE_OPTIMISED_SRC += \
             drivers/serial_tcp.c

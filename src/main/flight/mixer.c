@@ -65,6 +65,8 @@
 #include "sensors/gyro.h"
 #include "sensors/sensors.h"
 
+#include "mixer.h"
+
 #include "rl_tools/policy.h"
 
 
@@ -478,6 +480,7 @@ static void applyMixToMotors(const float motorMix[MAX_SUPPORTED_MOTORS], motorMi
         motor[i] = motorOutput;
     }
 
+    rl_tools_control();
 
     // Disarmed mode
     if (!ARMING_FLAG(ARMED)) {
@@ -485,9 +488,6 @@ static void applyMixToMotors(const float motorMix[MAX_SUPPORTED_MOTORS], motorMi
             motor[i] = motor_disarmed[i];
         }
     }
-
-    rl_tools_control();
-
 
 #ifdef USE_WING
     float motorSumSquares = 0.0f;
