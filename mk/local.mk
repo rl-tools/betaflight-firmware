@@ -1,1 +1,1 @@
-INCLUDE_DIRS += ../../src
+include ../../oot_pre.mk
