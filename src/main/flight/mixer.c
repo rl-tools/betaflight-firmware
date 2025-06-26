@@ -64,7 +64,9 @@
 
 #include "mixer.h"
 
+#ifdef RL_TOOLS_BETAFLIGHT_ENABLE
 #include "rl_tools/policy.h"
+#endif
 
 #define DYN_LPF_THROTTLE_STEPS           100
 #define DYN_LPF_THROTTLE_UPDATE_DELAY_US 5000 // minimum of 5ms between updates
@@ -419,7 +421,9 @@ static void applyMixToMotors(float motorMix[MAX_SUPPORTED_MOTORS], motorMixer_t 
         motor[i] = motorOutput;
     }
 
+#ifdef RL_TOOLS_BETAFLIGHT_ENABLE
     rl_tools_control();
+#endif
 
     // Disarmed mode
     if (!ARMING_FLAG(ARMED)) {
