@@ -174,6 +174,10 @@ bool cliMode = false;
 
 #include "cli.h"
 
+#ifdef RL_TOOLS_BETAFLIGHT_ENABLE
+#include "rl_tools/policy.h"
+#endif
+
 static serialPort_t *cliPort = NULL;
 
 // Space required to set array parameters
@@ -4833,6 +4837,10 @@ if (buildKey) {
         cliPrintf(" %s", armingDisableFlagNames[bitpos]);
     }
     cliPrintLinefeed();
+
+    #ifdef RL_TOOLS_BETAFLIGHT_ENABLE
+        rl_tools_status();
+    #endif
 }
 
 static void cliTasks(const char *cmdName, char *cmdline)
