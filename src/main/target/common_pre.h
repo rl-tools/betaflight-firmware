@@ -189,29 +189,29 @@
 #if !defined(USE_TELEMETRY)
 #define USE_TELEMETRY
 
-#define USE_TELEMETRY_FRSKY_HUB
-#define USE_TELEMETRY_SMARTPORT
-#define USE_TELEMETRY_CRSF
-#define USE_TELEMETRY_GHST
-#define USE_TELEMETRY_SRXL
+#undef USE_TELEMETRY_FRSKY_HUB
+#undef USE_TELEMETRY_SMARTPORT
+#undef USE_TELEMETRY_CRSF
+#undef USE_TELEMETRY_GHST
+#undef USE_TELEMETRY_SRXL
 
 #endif // !defined(USE_TELEMETRY)
 
 #define USE_SERVOS
 
 #undef USE_VTX
-#define USE_OSD
-#define USE_OSD_SD
-#define USE_OSD_HD
-#define USE_BLACKBOX
+#undef USE_OSD
+#undef USE_OSD_SD
+#undef USE_OSD_HD
+#undef USE_BLACKBOX
 
 #if TARGET_FLASH_SIZE >= 1024
 
 #if defined(USE_SERIALRX)
 
-#define USE_SERIALRX_JETIEXBUS
-#define USE_SERIALRX_SUMD       // Graupner Hott protocol
-#define USE_SERIALRX_SUMH       // Graupner legacy protocol
+#undef USE_SERIALRX_JETIEXBUS
+#undef USE_SERIALRX_SUMD       // Graupner Hott protocol
+#undef USE_SERIALRX_SUMH       // Graupner legacy protocol
 
 #endif // USE_SERIALRX
 

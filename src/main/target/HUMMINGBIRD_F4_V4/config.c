@@ -222,6 +222,7 @@ void targetConfiguration(void) {
     barometerConfigMutable()->baro_hardware = BARO_NONE;
 
     /* OSD */
+#ifdef USE_OSD
     osdWarnSetState(OSD_WARNING_BATTERY_NOT_FULL, false);
     osdWarnSetState(OSD_WARNING_VISUAL_BEEPER, false);
 
@@ -237,13 +238,17 @@ void targetConfiguration(void) {
     osdConfigMutable()->core_temp_alarm   = 85;
     osdConfigMutable()->displayPortDevice = OSD_DISPLAYPORT_DEVICE_MAX7456;
 
+    /* OSD -> Video Format */
+    vcdProfileMutable()->video_system = VIDEO_SYSTEM_NTSC;
+#endif
+
+#ifdef USE_VTX
     /* Video Transmitter -> Select Mode */
     vtxSettingsConfigMutable()->band = 4;
     vtxSettingsConfigMutable()->channel = 4;
     vtxSettingsConfigMutable()->power = 1;
+#endif
 
-    /* OSD -> Video Format */
-    vcdProfileMutable()->video_system = VIDEO_SYSTEM_NTSC;
 
     /* Unknow -> CPU */
     schedulerConfigMutable()->cpuLatePercentageLimit = 35;
@@ -261,12 +266,15 @@ void targetConfiguration(void) {
     dynNotchConfigMutable()->dyn_notch_max_hz  = 750;
     rxConfigMutable()->rc_smoothing_auto_factor_rpy = 25;
     rxConfigMutable()->rc_smoothing_auto_factor_throttle = 25;
+
+#ifdef USE_DSHOT_TELEMETRY
     rpmFilterConfigMutable()->rpm_filter_weights[0] = 100;
     rpmFilterConfigMutable()->rpm_filter_weights[1] = 20;
     rpmFilterConfigMutable()->rpm_filter_weights[2] = 100;
     rpmFilterConfigMutable()->rpm_filter_fade_range_hz = 100;
     rpmFilterConfigMutable()->rpm_filter_harmonics = 1;
     rpmFilterConfigMutable()->rpm_filter_fade_range_hz = 120;
+#endif
 
     /* PID Tuning -> PID Profile Setting */
     pidProfilesMutable(0)->dterm_lpf1_dyn_min_hz = 67;
