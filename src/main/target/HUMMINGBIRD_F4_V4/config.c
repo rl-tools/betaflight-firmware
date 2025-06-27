@@ -134,6 +134,8 @@ void targetConfiguration(void) {
     modeActivationConditionsMutable(3)->range.startStep = CHANNEL_VALUE_TO_STEP(1700);
     modeActivationConditionsMutable(3)->range.endStep   = CHANNEL_VALUE_TO_STEP(2100);
 
+#ifdef USE_VTX
+
     /* Video Transmitter -> VTX Table */
 #define _USER_VTX_TABLE_MAX_BANDS           5
 #define _USER_VTX_TABLE_MAX_CHANNELS        8
@@ -166,7 +168,6 @@ void targetConfiguration(void) {
     const char *rtc6705PowerNames[_USER_VTX_TABLE_MAX_POWER_LEVELS + 1] = {
         "25 ", "100", "MAX",
     };
-
     vtxTableConfigMutable()->bands = _USER_VTX_TABLE_MAX_BANDS;
     vtxTableConfigMutable()->channels = _USER_VTX_TABLE_MAX_CHANNELS;
     vtxTableConfigMutable()->powerLevels = _USER_VTX_TABLE_MAX_POWER_LEVELS;
@@ -187,6 +188,7 @@ void targetConfiguration(void) {
         vtxTableConfigMutable()->powerValues[i] = i;
         strcpy(vtxTableConfigMutable()->powerLabels[i], rtc6705PowerNames[i]);
     }
+#endif
 
 #undef _USER_VTX_TABLE_MAX_BANDS
 #undef _USER_VTX_TABLE_MAX_CHANNELS

@@ -81,7 +81,7 @@
 #define MAX7456_SPI_INSTANCE            SPI1
 
 /* ======== VTX ======== */
-#define USE_VTX_RTC6705
+#undef USE_VTX_RTC6705
 #define SPI_SHARED_MAX7456_AND_RTC6705
 
 #define RTC6705_CS_PIN                  PA14
