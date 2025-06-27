@@ -421,9 +421,6 @@ static void applyMixToMotors(float motorMix[MAX_SUPPORTED_MOTORS], motorMixer_t 
         motor[i] = motorOutput;
     }
 
-#ifdef RL_TOOLS_BETAFLIGHT_ENABLE
-    rl_tools_control();
-#endif
 
     // Disarmed mode
     if (!ARMING_FLAG(ARMED)) {
@@ -756,6 +753,7 @@ FAST_CODE_NOINLINE void mixTable(timeUs_t currentTimeUs)
         break;
     }
 
+    bool armed = false;
     if (featureIsEnabled(FEATURE_MOTOR_STOP)
         && ARMING_FLAG(ARMED)
         && !mixerRuntime.feature3dEnabled
@@ -767,7 +765,11 @@ FAST_CODE_NOINLINE void mixTable(timeUs_t currentTimeUs)
     } else {
         // Apply the mix to motor endpoints
         applyMixToMotors(motorMix, activeMixer);
+        armed = true;
     }
+    #ifdef RL_TOOLS_BETAFLIGHT_ENABLE
+        rl_tools_control(armed);
+    #endif
 }
 
 void mixerSetThrottleAngleCorrection(int correctionValue)
