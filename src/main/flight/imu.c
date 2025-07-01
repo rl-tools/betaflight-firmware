@@ -762,7 +762,7 @@ void getQuaternion(quaternion *quat)
    quat->z = q.z;
 }
 
-#ifdef SIMULATOR_BUILD
+#if defined(SIMULATOR_BUILD) || defined(RL_TOOLS_BETAFLIGHT_ENABLE)
 void imuSetAttitudeRPY(float roll, float pitch, float yaw)
 {
     IMU_LOCK;
