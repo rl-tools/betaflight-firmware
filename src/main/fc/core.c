@@ -311,11 +311,11 @@ void updateArmingStatus(void)
             unsetArmingDisabled(ARMING_DISABLED_BOXFAILSAFE);
         }
 
-        if (calculateThrottleStatus() != THROTTLE_LOW) {
-            setArmingDisabled(ARMING_DISABLED_THROTTLE);
-        } else {
+        // if (calculateThrottleStatus() != THROTTLE_LOW) {
+        //     setArmingDisabled(ARMING_DISABLED_THROTTLE);
+        // } else {
             unsetArmingDisabled(ARMING_DISABLED_THROTTLE);
-        }
+        // }
 
         if (!isUpright() && !IS_RC_MODE_ACTIVE(BOXFLIPOVERAFTERCRASH)) {
             setArmingDisabled(ARMING_DISABLED_ANGLE);
