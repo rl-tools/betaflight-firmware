@@ -171,6 +171,7 @@ void targetConfiguration(void) {
     /* Configuration -> Arming */
     imuConfigMutable()->small_angle = 180;
 
+#ifdef USE_VTX
     /* OSD */
     osdElementConfigMutable()->item_pos[OSD_MAIN_BATT_VOLTAGE]  = OSD_PROFILE_1_FLAG | OSD_POS(47,16);
     osdElementConfigMutable()->item_pos[OSD_RSSI_VALUE]         = OSD_PROFILE_1_FLAG | OSD_POS(1, 16);
@@ -180,6 +181,7 @@ void targetConfiguration(void) {
     osdElementConfigMutable()->item_pos[OSD_CRAFT_NAME]         = OSD_PROFILE_1_FLAG | OSD_POS(18,17);
     osdElementConfigMutable()->item_pos[OSD_GPS_SATS]           = OSD_PROFILE_1_FLAG | OSD_POS(1, 15);
     osdElementConfigMutable()->item_pos[OSD_WARNINGS]           = OSD_PROFILE_1_FLAG | OSD_POS(21, 9);
+#endif
 
     /* CPU Frequency */
     systemConfigMutable()->cpu_overclock = 1;
