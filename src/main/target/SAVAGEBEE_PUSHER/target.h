@@ -22,6 +22,7 @@
 
 #define TARGET_BOARD_IDENTIFIER         "Beebrain BL V4 HD ELRS Rev_A"
 #define USBD_PRODUCT_STRING             "SavageBee Pusher"
+#define RL_TOOLS_BETAFLIGHT_TARGET_SAVAGEBEE_PUSHER
 
 /* ======== LED ======== */
 #define USE_LED_STRIP
